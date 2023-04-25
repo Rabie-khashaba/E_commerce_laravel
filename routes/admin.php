@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainComtroller;
 use Illuminate\Support\Facades\Route;
@@ -15,11 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['namespace' => 'Admin' ,'middleware' => 'auth:admin' ],function (){
+    Route::get('/', [DashboardController::class , 'index'])->name('admin.dashboard');
 });
 
-Auth::routes();
+Route::group(['namespace' => 'Admin', 'middleware' => 'guest:admin'] ,function (){
+    Route::get('login' , [LoginController::class , 'adminLogin'])->name('get.admin.login');;
+    Route::post('login' , [LoginController::class , 'checkAdminLogin'])->name('admin.login');
+});
 
 
-Route::get('admin' , [MainComtroller::class , 'showAdmin']);
+
