@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LanguagesController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainComtroller;
@@ -17,8 +18,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+define('PAGINATION_COUNT' , 10);
+
 Route::group(['namespace' => 'Admin' ,'middleware' => 'auth:admin' ],function (){
     Route::get('/', [DashboardController::class , 'index'])->name('admin.dashboard');
+
+    ################## Begin Language Admins ################
+    Route::group(['prefix' => 'languages'], function (){
+        Route::get('/',[LanguagesController::class , 'index'])->name('admin.languages');
+
+        Route::get('create',[LanguagesController::class , 'createLanguage'])->name('create.admin.languages');
+        Route::post('save',[LanguagesController::class , 'saveLanguage'])->name('save.admin.languages');
+
+        Route::get('delete_language/{language_id}',[LanguagesController::class , 'deleteLanguage'])->name('delete.admin.languages');
+        Route::get('edit_language/{language_id}',[LanguagesController::class , 'editLanguages'])->name('edit.admin.languages');
+        Route::post('update_language/{language_id}',[LanguagesController::class , 'saveUpdateLanguages'])->name('update.admin.languages');
+
+
+    });
+    ################## End Language Admins ################
+
 });
 
 Route::group(['namespace' => 'Admin', 'middleware' => 'guest:admin'] ,function (){
