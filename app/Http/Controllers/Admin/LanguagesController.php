@@ -41,10 +41,10 @@ class LanguagesController extends Controller
 
 
         try {
-            Language::create($request->except(['token']));  // هيحفظ كل الداتا معادا token
+            Language::create($request->except(['_token']));  // هيحفظ كل الداتا معادا token
 
             return redirect()->route('admin.languages')->with(['success' => 'Saved successfully']);
-        }catch (Exception $ex){
+        }catch (\Exception $ex){
             return redirect()->route('admin.languages')->with(['errors' => 'Not Saved Try Again']);
 
         }
@@ -56,7 +56,7 @@ class LanguagesController extends Controller
 
         $language = Language::find($language_id);  // Offer::where('id', $offer_id)-> first();
         if(!$language){
-            return redirect()->back()->with(['errorس' => 'حدث خطا برجاء اعاده المحاوله']);
+            return redirect()->back()->with(['error' => 'حدث خطا برجاء اعاده المحاوله']);
         }
 
         //if exist
@@ -68,13 +68,7 @@ class LanguagesController extends Controller
     public function editLanguages($language_id){
         //return $language_id;
 
-        $language = Language::select(
-            'id',
-            'name',
-            'abbr',
-            'direction',
-            'active',
-        )->find($language_id);
+        $language = Language::selection()->find($language_id);
         return view('admin.languages.edit' , compact('language'));
     }
 
@@ -83,14 +77,23 @@ class LanguagesController extends Controller
 
             // request ===>  data that i updated in form
 
+        try {
+
             $language = Language::find($language_id);
             if(!$language){
-                return redirect()->back()->with(['errors' => 'حدث خطا برجاء اعاده المحاوله']);
+                return redirect()->route('edit.admin.languages',$language_id)->with(['error' => 'حدث خطا برجاء اعاده المحاوله']);
             }
 
-            //if exist
-            $language -> update($request ->all());
+            if (!$request->has('active'))
+                $request->request->add(['active' => 0]);  // to add active = 0
+
+
+            $language -> update($request ->except('_token'));
             return  redirect()->route('admin.languages')->with(['success' => 'تم التعديل بنجاح']);
+        }catch (\Exception $ex){
+            return redirect()->route('admin.languages')->with(['error' => 'حدث خطا برجاء اعاده المحاوله']);
+
+        }
 
     }
 }

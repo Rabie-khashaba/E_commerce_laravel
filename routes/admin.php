@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LanguagesController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\MainCategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainComtroller;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,22 @@ Route::group(['namespace' => 'Admin' ,'middleware' => 'auth:admin' ],function ()
 
     });
     ################## End Language Admins ################
+
+    ################## Start Main Categories Admins ################
+
+    Route::group(['prefix' => 'main_categories'], function (){
+        Route::get('/',[MainCategoryController::class , 'index'])->name('admin.mainCategories');
+
+        Route::get('create',[MainCategoryController::class , 'createMainCategory'])->name('create.admin.mainCategories');
+        Route::post('save',[MainCategoryController::class , 'saveMainCategory'])->name('save.admin.mainCategories');
+
+        Route::get('edit_language/{id}',[MainCategoryController::class , 'editMainCategory'])->name('edit.admin.mainCategories');
+        Route::post('update_language/{id}',[MainCategoryController::class , 'saveUpdateMainCategory'])->name('update.admin.mainCategories');
+        Route::get('delete_language/{id}',[MainCategoryController::class , 'deleteMainCategory'])->name('delete.admin.mainCategories');
+
+
+    });
+    ################## End Main Categories Admins ################
 
 });
 

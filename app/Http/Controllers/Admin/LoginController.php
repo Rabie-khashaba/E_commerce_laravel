@@ -28,14 +28,15 @@ class LoginController extends Controller
   }
 
 
-  // way to create new admin in database
-//  public function save(){
+  // way to create new admin in database by tinker
+
+
 //        $admin = new App\Models\Admin();
 //        $admin -> name = 'Ali';
 //        $admin -> email = 'Ali@gmail.com';
 //        $admin -> password = bcrypt('22222222');
 //        $admin -> save();
-//  }
+
 
 
 

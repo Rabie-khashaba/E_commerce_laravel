@@ -26,12 +26,17 @@ class Language extends Model
             'name',
             'direction',
             'active',
-
         );
     }
 
-    public function getActive(){
+
+
+    // if getActiveAttribute  will change the data in everything in the code  (accessor)
+    // if getActive  will change the data in the place that called in it (normal method)
+    public function getActive(){  // normal method
         return  $this -> active == 1 ? 'مفعل'  : 'غير مفعل';
     }
+
+
 
 }
