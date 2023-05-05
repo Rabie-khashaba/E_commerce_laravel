@@ -52,6 +52,14 @@ return [
             'throw' => false,
         ],
 
+        'vendors' => [
+            'driver' => 'local',
+            'root' => base_path('assets/images/vendors/'),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
