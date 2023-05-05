@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LanguagesController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MainCategoryController;
+use App\Http\Controllers\Admin\VendorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainComtroller;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +36,6 @@ Route::group(['namespace' => 'Admin' ,'middleware' => 'auth:admin' ],function ()
         Route::get('edit_language/{language_id}',[LanguagesController::class , 'editLanguages'])->name('edit.admin.languages');
         Route::post('update_language/{language_id}',[LanguagesController::class , 'saveUpdateLanguages'])->name('update.admin.languages');
 
-
     });
     ################## End Language Admins ################
 
@@ -47,13 +47,31 @@ Route::group(['namespace' => 'Admin' ,'middleware' => 'auth:admin' ],function ()
         Route::get('create',[MainCategoryController::class , 'createMainCategory'])->name('create.admin.mainCategories');
         Route::post('save',[MainCategoryController::class , 'saveMainCategory'])->name('save.admin.mainCategories');
 
-        Route::get('edit_language/{id}',[MainCategoryController::class , 'editMainCategory'])->name('edit.admin.mainCategories');
-        Route::post('update_language/{id}',[MainCategoryController::class , 'saveUpdateMainCategory'])->name('update.admin.mainCategories');
-        Route::get('delete_language/{id}',[MainCategoryController::class , 'deleteMainCategory'])->name('delete.admin.mainCategories');
+        Route::get('edit_main_categories/{id}',[MainCategoryController::class , 'editMainCategory'])->name('edit.admin.mainCategories');
+        Route::post('update_main_categories/{id}',[MainCategoryController::class , 'saveUpdateMainCategory'])->name('update.admin.mainCategories');
+        Route::get('delete_main_categories/{id}',[MainCategoryController::class , 'deleteMainCategory'])->name('delete.admin.mainCategories');
 
 
     });
     ################## End Main Categories Admins ################
+
+
+
+    ################### Start Main Vendors Admins ################
+
+    Route::group(['prefix' => 'vendors'], function (){
+        Route::get('/',[VendorController::class , 'index'])->name('admin.vendors');
+
+        Route::get('create',[VendorController::class , 'createVendors'])->name('create.admin.vendors');
+        Route::post('save',[VendorController::class , 'saveVendors'])->name('save.admin.vendors');
+
+        Route::get('edit_vendors/{id}',[VendorController::class , 'editVendors'])->name('edit.admin.vendors');
+        Route::post('update_vendors/{id}',[VendorController::class , 'saveUpdateVendors'])->name('update.admin.vendors');
+        Route::get('delete_vendors/{id}',[VendorController::class , 'deleteVendors'])->name('delete.admin.vendors');
+
+    });
+
+    ################## End Main Vendors Admins ################
 
 });
 

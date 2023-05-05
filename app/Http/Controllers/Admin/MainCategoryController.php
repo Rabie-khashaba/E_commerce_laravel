@@ -98,13 +98,16 @@ class MainCategoryController extends Controller
 
 
         public function editMainCategory($id){
-            $mainCategory = MainCategory::selection()->find($id);
-           // return  $mainCtegories;
+
+            // get specific language and its translations
+            $mainCategory = MainCategory::with('categories')
+                ->selection()
+                ->find($id);
+            //return  $mainCategory -> categories;
 
             if(!$mainCategory){
                 return redirect()->route('admin.mainCategories')->with(['error' => 'There Are Errors,Try Again']);
             }
-
             return view('admin.mainCategories.edit',compact('mainCategory'));
         }
 
@@ -115,7 +118,7 @@ class MainCategoryController extends Controller
 
                 //return $id;
             $mainCategory =  MainCategory::find($id);
-            //return  $request;
+            // return  $request;
             if(!$mainCategory){
                 return redirect()->route('admin.mainCategories')->with(['error' => 'There Are Errors,Try Again']);
             }
