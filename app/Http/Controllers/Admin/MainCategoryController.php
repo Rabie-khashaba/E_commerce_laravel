@@ -10,6 +10,7 @@ use App\Models\MainCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use PHPUnit\Exception;
 
 class MainCategoryController extends Controller
@@ -29,7 +30,7 @@ class MainCategoryController extends Controller
 
         public function saveMainCategory(MainCategoriesRequest $request){
 
-
+           // return  $request;
             try {
                 //$file_name = $this -> uploadImage($request -> photo , 'assets/images/offers');
 
@@ -38,6 +39,8 @@ class MainCategoryController extends Controller
                 $filter = $mainCategories->filter(function ($value , $key){
                     return $value['abbr'] == get_default_language();
                 });
+
+                //return $filter;
 
                 $default_category = array_values($filter ->all())[0];  // to get first index in array
 
@@ -154,6 +157,68 @@ class MainCategoryController extends Controller
             return  redirect()->route('admin.mainCategories')->with(['success' => 'تم التعديل بنجاح']);
 
             }catch (\Exception $ex){
+                return redirect()->route('admin.mainCategories')->with(['error' => 'There Are Errors,Try Again']);
+            }
+
+        }
+
+        public function deleteMainCategory($id){
+            try {
+                // return $id;
+
+
+                // to check if exist or not
+                $mainCategory = MainCategory::find($id);
+                if(!$mainCategory){
+                    return redirect()->route('admin.mainCategories')->with(['error' => 'There Are Errors,Try Again']);
+                }
+
+                // vendors --------> relations in mainCategory
+                $vendors = $mainCategory->vendors();
+                //return $vendors
+
+                if(isset($vendors) && $vendors -> count() > 0){
+                    return redirect()->route('admin.mainCategories')->with(['error' => 'You Can Not Delete This Category']);
+                }
+
+
+                // return $mainCategory->photo;
+
+                $image = Str::after( $mainCategory->photo , 'assets/');
+                $image = base_path('assets/'.$image);
+                unlink($image);  // delete image from folder (take app path)
+
+
+                $mainCategory -> delete();
+                return redirect()->route('admin.mainCategories')->with(['success' => 'Deleted Successfully']);
+
+
+
+            }catch (\Exception $exception){
+               // return  $exception;
+                return redirect()->route('admin.mainCategories')->with(['error' => 'There Are Errors,Try Again']);
+
+            }
+
+        }
+
+
+        public function changeStatus($id){
+
+            try {
+                $mainCategory = MainCategory::find($id);
+                if(!$mainCategory){
+                    return redirect()->route('admin.mainCategories')->with(['error' => 'There Are Errors,Try Again']);
+                }
+
+                //return $mainCategory;
+
+                $status = $mainCategory -> acive == 0 ? 1 : 0;
+
+                $mainCategory -> update([ 'active' => $status]);
+                return redirect()->route('admin.mainCategories')->with(['success' => 'Active Changed Successfully']);
+
+            }catch (\Exception $exception){
                 return redirect()->route('admin.mainCategories')->with(['error' => 'There Are Errors,Try Again']);
             }
 

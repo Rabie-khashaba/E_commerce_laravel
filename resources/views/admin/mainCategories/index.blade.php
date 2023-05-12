@@ -73,8 +73,7 @@
                                                                 <a href="{{route('delete.admin.mainCategories' , $mainCategory->id)}}"
                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
 
-
-                                                                <a href="{{route('delete.admin.mainCategories' , $mainCategory->id)}}"
+                                                                <a href="{{route('status.admin.mainCategories' , $mainCategory->id)}}"
                                                                    class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">تفعيل</a>
 
                                                             </div>

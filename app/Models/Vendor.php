@@ -4,16 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Vendor extends Model
 {
 
     use HasFactory;
+    use Notifiable;
 
     protected $table = "vendors";
-    protected $fillable = ['name' , 'email' , 'address' ,'mobile' ,'category_id','active','logo','created_at' ,'updated_at'];
+    protected $fillable = ['name' , 'email','password', 'address' ,'mobile' ,'category_id','active','logo','created_at' ,'updated_at'];
 
-    protected $hidden = ['created_at' ,'updated_at','category_id'];
+    protected $hidden = ['created_at' ,'updated_at','category_id','password'];
 
     public $timestamps = true;
 
@@ -34,7 +36,10 @@ class Vendor extends Model
             'name',
             'category_id',
             'logo',
+            'email',
+            'address',
             'mobile',
+            'active'
         );
     }
 
@@ -48,5 +53,10 @@ class Vendor extends Model
         return $this->belongsTo('App\Models\MainCategory', 'category_id', 'id');
     }
 
+    public function setPasswordAttribute($password){
+        if(!empty($password)){
+            $this -> attributes['password'] = bcrypt($password);
+        }
+    }
 
 }

@@ -170,5 +170,6 @@
     });
 </script>
 @yield('script')
+{{--@include('admin.maps.maps')--}}
 </body>
 </html>

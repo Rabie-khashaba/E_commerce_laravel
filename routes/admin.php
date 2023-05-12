@@ -50,6 +50,7 @@ Route::group(['namespace' => 'Admin' ,'middleware' => 'auth:admin' ],function ()
         Route::get('edit_main_categories/{id}',[MainCategoryController::class , 'editMainCategory'])->name('edit.admin.mainCategories');
         Route::post('update_main_categories/{id}',[MainCategoryController::class , 'saveUpdateMainCategory'])->name('update.admin.mainCategories');
         Route::get('delete_main_categories/{id}',[MainCategoryController::class , 'deleteMainCategory'])->name('delete.admin.mainCategories');
+        Route::get('changeStatus/{id}',[MainCategoryController::class , 'changeStatus'])->name('status.admin.mainCategories');
 
 
     });
@@ -76,7 +77,7 @@ Route::group(['namespace' => 'Admin' ,'middleware' => 'auth:admin' ],function ()
 });
 
 Route::group(['namespace' => 'Admin', 'middleware' => 'guest:admin'] ,function (){
-    Route::get('login' , [LoginController::class , 'adminLogin'])->name('get.admin.login');;
+    Route::get('login' , [LoginController::class , 'adminLogin'])->name('admin.login');;
     Route::post('login' , [LoginController::class , 'checkAdminLogin'])->name('admin.login');
 });
 

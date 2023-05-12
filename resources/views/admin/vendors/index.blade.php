@@ -68,11 +68,11 @@
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
-                                                                <a href="{{route('edit.admin.mainCategories' , $vendor->id)}}"
+                                                                <a href="{{route('edit.admin.vendors' , $vendor->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
 
 
-                                                                <a href="{{route('delete.admin.mainCategories' , $vendor->id)}}"
+                                                                <a href="{{route('delete.admin.vendors' , $vendor->id)}}"
                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
 
 

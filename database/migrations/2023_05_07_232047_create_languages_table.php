@@ -11,19 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vendors', function (Blueprint $table) {
+        Schema::create('languages', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('abbr');
+            $table ->string('locale');
             $table ->string('name');
-            $table ->string('logo');
-            $table ->integer('mobile');
-            $table ->string('email');
-            $table ->string("password");
-            $table ->text("address");
-            $table ->integer("category_id");
-            $table ->tinyInteger('active')->default(0);
+            $table ->string("direction");
+            $table ->tinyInteger("active")->default(0);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
-
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vendors');
+        Schema::dropIfExists('languages');
     }
 };
