@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\MainCategoryObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,6 +37,14 @@ class MainCategory extends Model
 
     public function vendors(){
         return $this->hasMany('App\Models\Vendor','category_id');
+    }
+
+
+    // to connect with observer
+    protected static function boot()
+    {
+        parent::boot();
+        MainCategory::observe(MainCategoryObserver::class);
     }
 
 

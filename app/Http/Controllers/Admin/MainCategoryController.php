@@ -188,10 +188,11 @@ class MainCategoryController extends Controller
                 $image = base_path('assets/'.$image);
                 unlink($image);  // delete image from folder (take app path)
 
+                // delete translation
+                $mainCategory -> categories()->delete();
 
                 $mainCategory -> delete();
                 return redirect()->route('admin.mainCategories')->with(['success' => 'Deleted Successfully']);
-
 
 
             }catch (\Exception $exception){
@@ -213,9 +214,15 @@ class MainCategoryController extends Controller
 
                 //return $mainCategory;
 
-                $status = $mainCategory -> acive == 0 ? 1 : 0;
+                $status = $mainCategory -> active == 0 ? 1 : 0;
 
                 $mainCategory -> update([ 'active' => $status]);
+
+
+                // to changes status of vendors belongs to category
+                // go to observer file
+
+
                 return redirect()->route('admin.mainCategories')->with(['success' => 'Active Changed Successfully']);
 
             }catch (\Exception $exception){

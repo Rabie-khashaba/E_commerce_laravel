@@ -10,6 +10,7 @@ use App\Notifications\VendorCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use PHPUnit\Exception;
 use function PHPUnit\Framework\exactly;
 
@@ -154,7 +155,27 @@ class VendorController extends Controller
             return redirect()->route('admin.vendors')->with(['error' => 'There Is Errors ,Try Again']);
         }
     }
-    public function deleteVendors(){
+    public function deleteVendors($id){
+        try {
+            // to check if exist or not
+            $vendor = Vendor::find($id);
+            if(!$vendor){
+                return redirect()->route('admin.mainCategories')->with(['error' => 'There Are Errors,Try Again']);
+            }
+
+            $image = Str::after( $vendor->logo , 'assets/');
+            $image = base_path('assets/'.$image);
+            unlink($image);  // delete image from folder (take app p
+
+            $vendor -> delete();
+
+            return redirect()->route('admin.mainCategories')->with(['success' => 'Deleted successfully']);
+
+
+        }catch (\Exception $exception){
+            return redirect()->route('admin.mainCategories')->with(['error' => 'There Are Errors,Try Again']);
+
+        }
 
     }
 }

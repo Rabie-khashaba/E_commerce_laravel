@@ -74,7 +74,13 @@
                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
 
                                                                 <a href="{{route('status.admin.mainCategories' , $mainCategory->id)}}"
-                                                                   class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">تفعيل</a>
+                                                                   class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                    @if($mainCategory -> active == 0)
+                                                                        تفعيل
+                                                                        @else
+                                                                        ألغاء مفعل
+                                                                    @endif
+                                                                </a>
 
                                                             </div>
                                                         </td>
