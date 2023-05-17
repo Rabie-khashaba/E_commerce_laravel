@@ -68,7 +68,9 @@ class VendorController extends Controller
                 'mobile'=> $request -> mobile,
                 'address'=> $request -> address,
                 'active' => $request -> active,
-                'logo' => $filename
+                'logo' => $filename,
+                'latitude' => $request -> latitude,
+                'longitude' => $request -> longitude,
             ]);
 
             // once create vendor , send notification to this vendor

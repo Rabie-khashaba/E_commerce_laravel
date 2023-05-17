@@ -19,6 +19,8 @@ return new class extends Migration
             $table ->string('email');
             $table ->string("password");
             $table ->text("address");
+            $table ->string("latitude");
+            $table ->string("longitude");
             $table ->integer("category_id");
             $table ->tinyInteger('active')->default(0);
             $table->timestamp('created_at')->nullable();
