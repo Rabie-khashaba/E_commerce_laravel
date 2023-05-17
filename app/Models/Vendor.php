@@ -13,7 +13,7 @@ class Vendor extends Model
     use Notifiable;
 
     protected $table = "vendors";
-    protected $fillable = ['name' , 'email','password', 'address' ,'mobile' ,'category_id','active','logo','created_at' ,'updated_at'];
+    protected $fillable = ['name' , 'email','password', 'address','latitude', 'longitude' ,'mobile' ,'category_id','active','logo','created_at' ,'updated_at'];
 
     protected $hidden = ['created_at' ,'updated_at','category_id','password'];
 
@@ -39,6 +39,8 @@ class Vendor extends Model
             'email',
             'address',
             'mobile',
+            'latitude',
+            'longitude',
             'active'
         );
     }

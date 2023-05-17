@@ -49,6 +49,9 @@
 
                                             <input name="id" value="{{$vendors -> id}}" type="hidden">
 
+                                            <input name="latitude" value="{{$vendors -> latitude}}" type="hidden">
+                                            <input name="longitude" value="{{$vendors -> longitude}}" type="hidden">
+
                                             <div class="form-group">
                                                 <div class="text-center">
                                                     <img class="rounded-circle height-150" src="{{$vendors -> logo}}" alt=" صوره القسم ">
